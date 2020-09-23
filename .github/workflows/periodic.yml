@@ -5,15 +5,22 @@ on:
   - cron: 0 11 * * ?
 
 jobs:
-  build:
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        rust: [stable]
-
-    runs-on: ${{ matrix.os }}
-
+  linux:
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+#      - name: Install dependencies
+#        run: sudo apt-get install ...
+      - name: Run regression test
+        run: source regress.sh
+
+  mac:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+#      - name: Install dependencies
+#        run: brew install ...
+      - name: Run regression test
+        run: source regress.sh

@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+#      - name: Install dependencies
+#        run: sudo apt-get install ...
+      - name: Run regression test
+        run: source regress.sh
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:
