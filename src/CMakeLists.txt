@@ -1,5 +1,0 @@
-add_executable(svvalid svvalid.cpp)
-target_link_libraries(svvalid PRIVATE slangcompiler)
-if(STATIC_BUILD)
-    target_link_libraries(svvalid PRIVATE -static -Wl,--whole-archive -lpthread -Wl,--no-whole-archive)
-endif()

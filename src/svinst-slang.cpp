@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "cxxopts.hpp"
+
 #include "slang/compilation/Compilation.h"
 #include "slang/syntax/SyntaxTree.h"
 #include "slang/text/SourceManager.h"
