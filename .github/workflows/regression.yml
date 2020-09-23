@@ -1,0 +1,17 @@
+name: Regression
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        rust: [stable]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1

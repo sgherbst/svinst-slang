@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        rust: [stable]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Build for linux
+      if: matrix.os == 'ubuntu-latest'
+      run: make release_lnx
+    - name: Build for macOS
+      if: matrix.os == 'macOS-latest'
+      run: make release_mac
+    - name: Build for Windows
+      if: matrix.os == 'windows-latest'
+      run: make release_win
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        body: '[Changelog](https://github.com/sgherbst/svinst-slang/blob/master/CHANGELOG.md)'
+        files: '*.zip'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

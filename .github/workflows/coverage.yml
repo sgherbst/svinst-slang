@@ -1,0 +1,22 @@
+name: Coverage
+
+# Skip this step for now since the upload action seems to be broken:
+# https://github.com/codecov/codecov-action/issues/37
+on:
+  push:
+    branches-ignore:
+      - '**'
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+          fail_ci_if_error: true
