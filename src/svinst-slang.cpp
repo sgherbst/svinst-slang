@@ -31,9 +31,26 @@ bool is_valid_verilog(const std::string &src) {
 }
 
 int main(int argc, char** argv) {
-    if (argc) {
+    cxxopts::Options options("svinst-slang", "Parse module instantiations in SystemVerilog.");
+
+    options
+        .add_options()
+        ("files",
+         "List of files", cxxopts::value<std::vector<std::string>>())
+        ("h,help", "Print usage");
+
+    options.parse_positional({"files"});
+
+    auto result = options.parse(argc, argv);
+
+    if (result.count("help")) {
+        std::cout << options.help() << std::endl;
+        exit(0);
     }
-    if (is_valid_verilog(argv[1])){
+
+    auto files = result["files"].as<std::vector<std::string>>();
+
+    if (is_valid_verilog(files[0])) {
         std::cout << "Valid :-)" << std::endl;
     } else {
         std::cout << "Invalid :-(" << std::endl;
