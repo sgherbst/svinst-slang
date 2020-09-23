@@ -35,8 +35,14 @@ int main(int argc, char** argv) {
 
     options
         .add_options()
-        ("files",
-         "List of files", cxxopts::value<std::vector<std::string>>())
+        ("d,define", "Define", cxxopts::value<std::vector<std::string>>())
+        ("i,include", "Include path", cxxopts::value<std::vector<std::string>>())
+        ("ignore-include", "Ignore any includes", cxxopts::value<bool>()->default_value("false"))
+        ("full-tree", "Show the full syntax tree rather than just module instantiation",
+         cxxopts::value<bool>()->default_value("false"))
+        ("separate", "Treat each file as completely separate, not updating define variables after each file",
+         cxxopts::value<bool>()->default_value("false"))
+        ("files", "List of files", cxxopts::value<std::vector<std::string>>())
         ("h,help", "Print usage");
 
     options.parse_positional({"files"});
